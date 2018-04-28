@@ -12,7 +12,13 @@ services:
     restart: always
     ports: 
       - "3306:3306"
+      # 将初始化脚本映射到mysql指定初始化目录，自动执行.SQL.SH后缀文件，默认库为环境变量中指定的库
+    volumes:
+      - /opt/docker-compose/webvulscan/initdb:/docker-entrypoint-initdb.d
     environment: 
-      MYSQL_ROOT_PASSWORD: 
+      # 初始化root密码
+      MYSQL_ROOT_PASSWORD:
+      # 初始化一个库 
       MYSQL_DATABASE: 'webvulscan'
+      # 允许mysql root用户不使用密码登录
       MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
